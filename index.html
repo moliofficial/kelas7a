@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kelas 7A — Beranda</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+/* ── HERO ── */
+#hero {
+  min-height: calc(100vh - 68px);
+  display: flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:60px 24px;
+  background:
+    radial-gradient(ellipse 60% 50% at 15% 50%, rgba(26,58,107,.55) 0%, transparent 100%),
+    radial-gradient(ellipse 50% 40% at 85% 20%, rgba(245,200,66,.07) 0%, transparent 100%),
+    var(--navy);
+  position:relative; overflow:hidden;
+}
+#hero::before {
+  content:'7A';
+  position:absolute; font-family:'Playfair Display',serif; font-size:clamp(200px,30vw,380px);
+  font-weight:900; color:rgba(255,255,255,0.025); pointer-events:none; user-select:none;
+  right:-2%; bottom:-5%; line-height:1;
+}
+.hero-badge {
+  display:inline-block; background:rgba(245,200,66,0.12); border:1px solid rgba(245,200,66,.35);
+  color:var(--gold); font-size:0.72rem; font-weight:700; letter-spacing:2.5px; text-transform:uppercase;
+  padding:7px 20px; border-radius:100px; margin-bottom:28px;
+  animation:fadeUp .5s ease both;
+}
+#hero h1 {
+  font-family:'Playfair Display',serif; font-size:clamp(3.2rem,9vw,6.5rem);
+  font-weight:900; line-height:1.02; margin-bottom:22px;
+  animation:fadeUp .55s .08s ease both;
+}
+#hero h1 .gold { color:var(--gold); }
+#hero p {
+  font-size:1.05rem; color:var(--gray); max-width:460px; line-height:1.75;
+  margin-bottom:44px; animation:fadeUp .55s .16s ease both;
+}
+.hero-btns { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; animation:fadeUp .55s .24s ease both; }
+
+/* ── STATS ── */
+.stats-strip {
+  display:flex; justify-content:center; gap:0; flex-wrap:wrap;
+  border-top:1px solid rgba(255,255,255,0.06);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.stat-item {
+  flex:1; min-width:160px; padding:40px 20px; text-align:center;
+  border-right:1px solid rgba(255,255,255,0.06);
+}
+.stat-item:last-child { border-right:none; }
+.stat-num {
+  font-family:'Playfair Display',serif; font-size:2.6rem; font-weight:900; color:var(--gold);
+  display:block; line-height:1;
+}
+.stat-lbl { font-size:0.75rem; color:var(--gray); text-transform:uppercase; letter-spacing:1.2px; margin-top:8px; display:block; }
+
+/* ── QUICK LINKS ── */
+.quick-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px;
+}
+.quick-card {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+  border-radius:var(--radius); padding:32px 28px; text-decoration:none; color:var(--white);
+  transition:all .2s; display:flex; flex-direction:column; gap:14px;
+  position:relative; overflow:hidden;
+}
+.quick-card::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--gold2)); transform:scaleX(0); transition:.25s;
+}
+.quick-card:hover { transform:translateY(-5px); border-color:rgba(245,200,66,.28); }
+.quick-card:hover::after { transform:scaleX(1); }
+.quick-icon { font-size:2rem; }
+.quick-title { font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:700; }
+.quick-desc { font-size:0.83rem; color:var(--gray); line-height:1.6; }
+.quick-arrow { color:var(--gold); font-size:1.2rem; margin-top:auto; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/">✦ Kelas 7A</a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/siswa">Siswa</a>
+    <a href="/foto">Foto</a>
+    <a href="/developer">Developer</a>
+    <a href="/admin" class="nav-admin">Admin</a>
+  </div>
+  <button class="nav-hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page-wrapper">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-badge">✦ Tahun Ajaran 2025 / 2026</div>
+    <h1>Selamat Datang<br>di Kelas <span class="gold">7A</span></h1>
+    <p>Portal resmi kelas 7A. Temukan data siswa, galeri kegiatan, dan informasi lengkap di sini.</p>
+    <div class="hero-btns">
+      <a href="/siswa" class="btn btn-primary">👥 Lihat Nama Siswa</a>
+      <a href="/foto"  class="btn btn-outline">📷 Lihat Foto</a>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <span class="stat-num" id="stat-siswa">–</span>
+      <span class="stat-lbl">Total Siswa</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" id="stat-foto">–</span>
+      <span class="stat-lbl">Foto Tersimpan</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">7A</span>
+      <span class="stat-lbl">Kelas</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">2025</span>
+      <span class="stat-lbl">Angkatan</span>
+    </div>
+  </div>
+
+  <!-- QUICK LINKS -->
+  <div class="section">
+    <div class="section-head">
+      <h2>Jelajahi <span class="gold">Portal</span></h2>
+      <p>Semua informasi kelas 7A ada di sini</p>
+    </div>
+    <div class="quick-grid">
+      <a href="/siswa" class="quick-card anim" style="animation-delay:.05s">
+        <div class="quick-icon">👥</div>
+        <div class="quick-title">Daftar Siswa</div>
+        <div class="quick-desc">Lihat seluruh nama siswa kelas 7A beserta nomor absen dan informasi lainnya.</div>
+        <div class="quick-arrow">→</div>
+      </a>
+      <a href="/foto" class="quick-card anim" style="animation-delay:.1s">
+        <div class="quick-icon">📷</div>
+        <div class="quick-title">Galeri Foto</div>
+        <div class="quick-desc">Dokumentasi kegiatan dan momen bersama kelas 7A sepanjang tahun.</div>
+        <div class="quick-arrow">→</div>
+      </a>
+      <a href="/developer" class="quick-card anim" style="animation-delay:.15s">
+        <div class="quick-icon">💻</div>
+        <div class="quick-title">Developer</div>
+        <div class="quick-desc">Kenali tim yang membangun dan mengelola portal kelas 7A ini.</div>
+        <div class="quick-arrow">→</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script type="module">
+import { db, ref, onValue, initNav } from '/_shared.js';
+initNav();
+
+onValue(ref(db,'kelas7a/siswa'), s => {
+  document.getElementById('stat-siswa').textContent = Object.keys(s.val()||{}).length;
+});
+onValue(ref(db,'kelas7a/foto'), s => {
+  document.getElementById('stat-foto').textContent = Object.keys(s.val()||{}).length;
+});
+</script>
+</body>
+</html>

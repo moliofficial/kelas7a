@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Developer — Kelas 7A</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+.page-hero { padding:80px 40px 60px; max-width:1140px; margin:0 auto; }
+.dev-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:24px; }
+.dev-card {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px; padding:36px 28px; text-align:center; transition:.22s;
+  animation:fadeUp .5s ease both;
+}
+.dev-card:hover { border-color:rgba(245,200,66,.38); transform:translateY(-5px); box-shadow:0 16px 40px rgba(0,0,0,.3); }
+.dev-avatar {
+  width:80px; height:80px; border-radius:50%; margin:0 auto 22px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Playfair Display',serif; font-size:1.9rem; font-weight:900; color:var(--navy);
+  border:3px solid rgba(245,200,66,.35);
+  background:linear-gradient(135deg,#1a3a6b,var(--gold));
+}
+.dev-name { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:900; margin-bottom:7px; }
+.dev-role { font-size:0.75rem; color:var(--gold); font-weight:700; text-transform:uppercase; letter-spacing:1.2px; margin-bottom:14px; }
+.dev-bio { font-size:0.85rem; color:var(--gray); line-height:1.7; }
+@media(max-width:700px){ .page-hero { padding:60px 20px 40px; } }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-brand" href="/">✦ Kelas 7A</a>
+  <div class="nav-links">
+    <a href="/">Home</a><a href="/siswa">Siswa</a><a href="/foto">Foto</a>
+    <a href="/developer">Developer</a><a href="/admin" class="nav-admin">Admin</a>
+  </div>
+  <button class="nav-hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-wrapper">
+  <div class="page-hero">
+    <p style="color:var(--gold);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;">Kelas 7A · Tim</p>
+    <h1 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:900;margin-bottom:10px;">Tim <span style="color:var(--gold)">Developer</span></h1>
+    <p style="color:var(--gray);">Orang-orang di balik portal kelas 7A ini</p>
+  </div>
+  <div class="section" style="padding-top:0;">
+    <div class="dev-grid" id="devGrid">
+      <div class="loading" style="grid-column:1/-1"><div class="spinner"></div>Memuat...</div>
+    </div>
+  </div>
+</div>
+<div id="toast"></div>
+
+<script type="module">
+import { db, ref, onValue, initNav } from '/_shared.js';
+initNav();
+
+onValue(ref(db,'kelas7a/developer'), snap => {
+  const data = snap.val() || {};
+  const grid = document.getElementById('devGrid');
+  const entries = Object.entries(data).sort((a,b)=>(a[1].createdAt||0)-(b[1].createdAt||0));
+
+  if (!entries.length) {
+    grid.innerHTML='<div class="empty-state" style="grid-column:1/-1"><div class="icon">💻</div><p>Belum ada developer ditambahkan</p></div>';
+    return;
+  }
+
+  grid.innerHTML = entries.map(([id,d], i) => `
+    <div class="dev-card" style="animation-delay:${i*0.07}s">
+      <div class="dev-avatar">${(d.nama||'?')[0].toUpperCase()}</div>
+      <div class="dev-name">${d.nama||'?'}</div>
+      <div class="dev-role">${d.role||'Developer'}</div>
+      <div class="dev-bio">${d.bio||''}</div>
+    </div>
+  `).join('');
+});
+</script>
+</body>
+</html>
