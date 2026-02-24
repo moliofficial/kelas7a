@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "api/index.js" },
+    { "src": "/siswa",     "dest": "/siswa.html" },
+    { "src": "/foto",      "dest": "/foto.html" },
+    { "src": "/developer", "dest": "/developer.html" },
+    { "src": "/admin",     "dest": "/admin.html" },
+    { "src": "/anime",     "dest": "/anime.html" },
+    { "src": "/(.*)",      "dest": "/$1" }
+  ]
+}
